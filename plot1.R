@@ -12,7 +12,7 @@ df <- subset(my_data, datetime %in% range)
 
 load_plotdata()
 
-png("plot1.png", width=400, height=400)
+png("plot1.png", width=504, height=504)
 
 hist(df$Global_active_power, xlim = c(0,6), main = "Global Active Power",  xlab = "Global Active Power (kilowatts)", ylab = "Frequency", col="red") 
 
