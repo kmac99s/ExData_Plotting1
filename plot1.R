@@ -1,8 +1,19 @@
-library(dplyr)
-library(lubridate)
-my_data <- read.table(file = "household_power_consumption.txt", sep = ";", na.strings = "?",  header = TRUE)
+load_plotdata <- function() {
 
-my_data$DateTime <- paste(my_data$Date, my_data$Time)
+df <- read.table(file = "household_power_consumption.txt", sep = ";", na.strings = "?",  header = TRUE, stringsAsFactors = FALSE)
 
+df$datetime <- as.Date(strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%S"))
 
-sub_data <- filter(my_data, DateTime >= as.Date("2006-02-01 00:00:00"), DateTime < as.Date("2006-02-03 00:00:00"))
+range <- as.Date(c("2007-02-01", "2007-02-02"), "%Y-%m-%d")
+
+df <- subset(my_data, datetime %in% range)
+
+}
+
+load_plotdata()
+
+png("plot1.png", width=400, height=400)
+
+hist(df$Global_active_power, xlim = c(0,6), main = "Global Active Power",  xlab = "Global Active Power (kilowatts)", ylab = "Frequency", col="red") 
+
+dev.off()
