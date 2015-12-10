@@ -2,11 +2,15 @@ load_plotdata <- function() {
 
 df <- read.table(file = "household_power_consumption.txt", sep = ";", na.strings = "?",  header = TRUE, stringsAsFactors = FALSE)
 
-df$datetime <- as.Date(strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%S"))
+df$datetime <- as.POSIXct(strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%S"))
+
+df$Date <-as.Date(strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%S"))
 
 range <- as.Date(c("2007-02-01", "2007-02-02"), "%Y-%m-%d")
 
-df <- subset(my_data, datetime %in% range)
+df <- subset(df, df$Date %in% range)
+
+return(df)
 
 }
 
