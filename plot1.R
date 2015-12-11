@@ -1,4 +1,4 @@
-load_plotdata <- function() {
+#Get Data
 
 df <- read.table(file = "household_power_consumption.txt", sep = ";", na.strings = "?",  header = TRUE, stringsAsFactors = FALSE)
 
@@ -10,11 +10,7 @@ range <- as.Date(c("2007-02-01", "2007-02-02"), "%Y-%m-%d")
 
 df <- subset(df, df$Date %in% range)
 
-return(df)
-
-}
-
-load_plotdata()
+#Do Plot as a PNG
 
 png("plot1.png", width=504, height=504)
 
